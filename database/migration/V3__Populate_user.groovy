@@ -1,0 +1,1 @@
+jdbcTemplate.execute("INSERT INTO test_user (name) VALUES ('Obelix')")
