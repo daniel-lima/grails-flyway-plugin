@@ -15,56 +15,25 @@
  */
 package org.codehaus.groovy.grails.plugins.flyway
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.BeansException
+import org.springframework.beans.factory.config.BeanDefinition
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
 
 /**
  * @author Daniel Henrique Alves Lima
  */
-class SessionFactoryPostProcessor implements BeanFactoryPostProcessor/*, ApplicationContextAware */{
-
-    private ApplicationContext appCtx
-
-    /*@Override
-    public void setApplicationContext(ApplicationContext context)
-    throws BeansException {
-        println context
-    }*/
-
-
+class SessionFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory factory)
     throws BeansException {
-        //println "${factory}"
         BeanDefinition sessionFactoryDef = factory.getBeanDefinition('transactionManager')
         def dependsOn = sessionFactoryDef.dependsOn
-        
+
         dependsOn = dependsOn? new ArrayList(dependsOn) : new ArrayList()
         dependsOn.add('flyway')
-        
-        //println ''
-        //println "sessionFactoryDef ${sessionFactoryDef.properties}"
+
         sessionFactoryDef.dependsOn = dependsOn
     }
-
-
-
-    /*@Override
-     public Object postProcessAfterInitialization(Object bean, String beanName)
-     throws BeansException {
-     println "${beanName} ${bean}"
-     return bean
-     }
-     @Override
-     public Object postProcessBeforeInitialization(Object bean, String beanName)
-     throws BeansException {
-     println "${beanName} ${bean}"
-     return bean
-     }*/
 }

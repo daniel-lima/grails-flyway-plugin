@@ -51,6 +51,7 @@ Provides integration with Flyway (http://code.google.com/p/flyway/).
             bean.initMethod = 'migrate'
             bean.lazyInit = false
             dataSource = ref('dataSource')
+            baseDir = 'database/migration'
         }
         
         /*println delegate.getBeanDefinitions()
