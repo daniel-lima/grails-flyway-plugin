@@ -125,7 +125,7 @@ class GroovyMigrationResolver implements MigrationResolver {
                 Map migration = null
                 migration = [
                             version: (SchemaVersion) MigrationInfoHelper.extractSchemaVersion(versionString),
-                            description: (String) MigrationInfoHelper.extractDescription(scriptName),
+                            description: (String) MigrationInfoHelper.extractDescription(versionString),
                             checksum: (Integer) crc32.value,
                             getVersion: {return migration.version},
                             getDescription: {return migration.description},
