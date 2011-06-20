@@ -29,7 +29,13 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.13'
         compile ('com.googlecode.flyway:flyway-core:1.4.1') {
             //export = false
-            excludes 'spring-tx', 'spring-context', 'spring-core'
+            transitive = false
+            excludes([group: 'org.springframework'],
+                [group: 'junit'],
+                [group: 'log4j'],
+                [group: 'org.hsqldb'],
+                [group: 'com.h2database']
+            )
         }
     }
 }
