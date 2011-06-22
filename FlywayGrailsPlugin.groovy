@@ -33,7 +33,7 @@ class FlywayGrailsPlugin {
     def author = "Daniel Henrique Alves Lima"
     def authorEmail = "email_daniel_h@yahoo.com.br"
     def title = "Flyway Grails Plugin"
-    def description = '''\\.
+    def description = '''\\
 Provides integration with Flyway (http://code.google.com/p/flyway/).
 '''
 
