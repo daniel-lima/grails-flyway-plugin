@@ -22,5 +22,5 @@ log4j = {
 
     warn   'org.mortbay.log'
     
-    debug  'com.googlecode.flyway.core'
+    debug  'com.googlecode.flyway.core'//, 'org.codehaus.groovy.grails.plugins.flyway.migration.EnhacedJavaMigrationResolver'
 }

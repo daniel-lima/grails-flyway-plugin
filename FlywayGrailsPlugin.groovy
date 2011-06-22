@@ -19,7 +19,7 @@
  */
 class FlywayGrailsPlugin {
     // the plugin version
-    def version = "0.1.0-SNAPSHOT"
+    def version = "0.1.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.2 > *"
     // the other plugins this plugin depends on
@@ -52,14 +52,9 @@ Provides integration with Flyway (http://code.google.com/p/flyway/).
             bean.lazyInit = false
             dataSource = ref('dataSource')
             baseDir = 'database/migration'
+            basePackage = ''
         }
         
-        /*println delegate.getBeanDefinitions()
-        
-        def sessionFactoryDef = delegate.getBeanDefinition('transactionManager')
-        def sessionFactoryPropValues = sessionFactoryDef.propertyValues
-        def sessionFactoryDependsOnValue = sessionFactoryPropValues.getPropertyValue('depends-on')
-        println "sessionFactoryDependsOnValue ${sessionFactoryDependsOnValue}"*/
     }
 
     def doWithDynamicMethods = { ctx ->

@@ -39,12 +39,6 @@ class GroovyMigrationResolver implements MigrationResolver {
     private Logger log = Logger.getLogger(getClass())
 
     /**
-     * Spring utility for loading resources from the classpath using wildcards.
-     */
-    private final PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver =
-    new PathMatchingResourcePatternResolver();
-
-    /**
      * The base directory on the classpath where to migrations are located.
      */
     private final String baseDir;
@@ -89,6 +83,9 @@ class GroovyMigrationResolver implements MigrationResolver {
         if (!cl) {
             cl = this.class.classLoader
         }
+        PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver =
+                new PathMatchingResourcePatternResolver(cl);
+
         GroovyClassLoader groovyClassLoader = (cl instanceof GroovyClassLoader)? cl: new GroovyClassLoader(cl)
 
 
@@ -109,6 +106,7 @@ class GroovyMigrationResolver implements MigrationResolver {
             final CRC32 crc32 = new CRC32()
 
             for (resource in resources) {
+                crc32.reset()
                 final String versionString =
                         extractVersionStringFromFileName(resource.filename, groovyMigrationPrefix, groovyMigrationSuffix)
                 String uri = resource.getURI().toString()
@@ -116,6 +114,7 @@ class GroovyMigrationResolver implements MigrationResolver {
 
                 // TODO: Use Reader and GroovyCodeSource instead of String
                 String scriptSource = ResourceUtils.loadResourceAsString(resource, encoding)
+                // TODO: Use CheckedInputStream to calculate the checksum
                 crc32.update(scriptSource.bytes)
 
                 def script = (Class) groovyClassLoader.parseClass(scriptSource)
@@ -138,7 +137,7 @@ class GroovyMigrationResolver implements MigrationResolver {
 
                 GroovyMigration groovyMigration = migration as GroovyMigration
                 JavaMigrationExecutor migrationAdapter = new JavaMigrationExecutor(groovyMigration)
-                migrationAdapter.@script = scriptName 
+                migrationAdapter.@script = scriptName
                 migrations.add(migrationAdapter)
             }
         } catch (IOException e) {

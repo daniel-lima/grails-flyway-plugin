@@ -146,7 +146,7 @@ class GroovyAwareMigrationProvider extends MigrationProvider {
         Collection<MigrationResolver> migrationResolvers = new ArrayList<MigrationResolver>();
         migrationResolvers.add(new SqlMigrationResolver(this.baseDir, placeholderReplacer, this.encoding, this.sqlMigrationPrefix, this.sqlMigrationSuffix));
         migrationResolvers.add(new GroovyMigrationResolver(baseDir, encoding, groovyMigrationPrefix, groovyMigrationSuffix));
-        migrationResolvers.add(new JavaMigrationResolver(basePackage));
+        migrationResolvers.add(new EnhancedJavaMigrationResolver(baseDir, basePackage));
 
         List<Migration> migrations = new ArrayList<Migration>(collectMigrations(migrationResolvers));
         Collections.sort(migrations);
