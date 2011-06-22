@@ -8,4 +8,4 @@
 //
 //    ant.mkdir(dir:"${basedir}/grails-app/jobs")
 //
-ant.mkdir(dir: "${grailsSettings.baseDir}/${scriptDir}")
+ant.mkdir(dir: "${grailsSettings.baseDir}/database/migration")
