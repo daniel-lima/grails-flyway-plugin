@@ -32,7 +32,7 @@ class FlywayGrailsPlugin {
     // TODO Fill in these fields
     def author = "Daniel Henrique Alves Lima"
     def authorEmail = "email_daniel_h@yahoo.com.br"
-    def title = "Flyway Grails Plugin"
+    def title = "Grails Flyway Plugin"
     def description = '''\\
 Provides integration with Flyway (http://code.google.com/p/flyway/).
 '''
